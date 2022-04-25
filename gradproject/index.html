@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title> Home page 
+        </title>
+        <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v5.js"
+			integrity="sha384-qbNa7U27VV0Cghe/43y8zEMkmA5M4VxV6MI0k0vdVJKTrBoT2SnBqwccpD0vX+Is"
+			crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    
+    <script src="js/scatter.js"></script>
+    <script src="js/scatter2.js"></script>
+    <script src="js/bar.js"></script>
+    <div class="page">
+
+    <div class = "jumbotron">
+            <h1 style="text-align: center;">Are Sounds Deceiving ?</h1>
+            <p style="font-size: 24px;"> A data-driven analysis for conclusions abount Rose-crested Blue Pipit</p>
+    </div>
+    
+    </head>
+    <body style="background-color: rgb(199, 208, 211);">
+
+        <p> Throughout this page, we will analyze the vocal data collected from different parts of preserve</p>
+    
+       
+        <div style = "margin-left: 300px; float: initial; display: block;">
+            <svg id="vis1" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
+            </svg>
+        </div>
+        <p style="text-align: center;">1111111111111111</p>
+
+        <div style = "margin-left: 300px;">
+            <svg id="vis2" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
+        </svg>
+        </div>
+        <p style="text-align: center;"> 222222222222222222222222</p>
+        <br/> <br/>
+
+        
+    </div>
+
+        <div style = "margin-left: 300px;">
+            <svg id="vis3" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
+        </svg>
+        </div>
+        <p style="text-align: center;"> 333333333333333333333333</p>
+        <br/> <br/>
+
+        
+        <h1 class="desc" style="text-align: center;">Credits: </h1>
+        <p class="desc"> Darshan Gummadi</p>
+        </p>
+        <br/> <br/>
+
+        
+        
+        
+    <script>
+
+        var data = null; 
+        let prcnt_tot_hc = null;
+        let expend = null;
+
+
+       d3.csv("data/AllBirdsv4.csv",(row,i) => {
+           return{
+               bird_name: row.English_name,
+               xcordinate: row.X,
+               ycordinate: row.Y
+           }
+       }).then(data => {
+           vis1=loadscatterplot(data, "#vis1");
+       })
+
+         d3.csv("data/Entries.csv",(row,i) => {
+              return{
+                Year: row.Year,
+                noofentries: row.Entries
+              }
+         }).then(data => {
+              vis2=loadbar(data, "#vis2");
+         })
+
+            d3.csv("data/TestBirdsLocation.csv",(row,i) => {
+                return{
+                    X: row.X,
+                    Y: row.Y
+                }
+            }).then(data => {
+                vis3=loadscatterplot2(data, "#vis3");
+            })
+    </script>
+
+</div>
+    </body>
+        
+   
+</html>
