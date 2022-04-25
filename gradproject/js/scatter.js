@@ -5,61 +5,49 @@ function loadscatterplot(data,svg_name){
     chart_height = $(svg_name).height();
 
     birds = data.length;
-    //alert(no_of_passengers);
+
+    var tooltips = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "black")
+        .style("border-radius", "4px")
+        .style("color", "white").style("padding", "5px")
+    
     bird_name = 
     data.filter(function(d){ return d.bird_name=="Rose-crested Blue Pipit"})
 
 
     console.log(bird_name);
-    
-    /*let new_data = [];
-
-    embarked_locs = d3.map(data, d => d.embarked).keys();
-    embarked_locs.splice(3,1);  // Removing null values
-    //alert(embarked_locs);
-    embarked_locs.forEach(ele => {
-        obj = {};
-        obj[field] = ele;  // field = "Embarked"
-        perc_of_pass = no_of_ps_emb(ele)/no_of_passengers * 100;
-        obj['% of total pass'] = perc_of_pass;
-        new_data.push(obj);
-    });
-    
-    //new_data.splice(3,1);  */
-
     xScale = d3.scaleLinear()
                 .domain([0,160])
-                .range([30,chart_width - 30]);
+                .range([30,chart_width - 90]);
 
     yScale = d3.scaleLinear()
                 .domain([0, 160])
                 .range([chart_height - 70, 80]);
 
-    
-
-    // chart.selectAll("rect")
-    //     .data(new_data).enter()
-    //         .append("rect")
-    //             .attr("x", function(d) {  return xScale(d["embarked"]); })
-    //             .attr("y", function(d) {  return yScale(d['% of total pass']); })
-    //             .attr("width", "150px")
-    //             .attr("height", chart_height - 30)
-    //             .attr("fill", function(d) { return colorScale(d["embarked"]);
-    //         });
 
     chart.selectAll("circle")
         .data(bird_name).enter()
             .append("circle")
+                .attr("class", "dot")
                 .attr("cx", function(d) {  
-                    console.log(d.xcordinate);
+                
                     return xScale(d["xcordinate"]); })
                 .attr("cy", function(d) {  
                     return yScale(d["ycordinate"]); })
                     .attr("r", 5)
                     .attr("stroke-width","2px")
                     .attr("fill-opacity",0.9)
-                //.attr("height", d=> yScale(100-d["% of total pass"]))//chart_height - 30)
-                .attr("fill", "blue");
+                .attr("fill", "#77b300")
+                .on("mouseover", function(d) {
+                    tooltips.style("visibility", "visible")
+                    .html("Year: " + d["date"] + "<br>" + "X: " + d["xcordinate"] + "<br>" + "Y: " + d["ycordinate"])
+                })
+                .on("mousemove", function(d) {
+                    tooltips.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+                });
 
     
     yAxis = chart.append("g")
@@ -67,21 +55,21 @@ function loadscatterplot(data,svg_name){
                 .call(d3.axisLeft().scale(yScale));
 
     xAxis = chart.append("g")
-                .attr("transform", "translate(10,"+(chart_height-40)+")")
+                .attr("transform", "translate(50,"+(chart_height-40)+")")
                 .call(d3.axisBottom().scale(xScale));
 
     chart.append("text")
-            .text("Embarkment location")
-            .attr("y",chart_height-20)
-            .attr("dx",chart_width/2 - 150)
+            .text("X cordinates of the Boonsong Lekagul Nature Preserve")
+            .attr("y",chart_height-10)
+            .attr("dx",chart_width/2 - 10)
             .style("text-anchor","middle")
             .attr("font-weight","bold");
 
     chart.append("text")
-        .text("% of total no. of passengers")
+        .text("Y cordinates of the Boonsong Lekagul Nature Preserve")
         .attr("transform", "rotate(-90)")
-        .attr("y",13)
-        .attr("dx",-180)
+        .attr("y",15)
+        .attr("dx",-100)
         .style("text-anchor","end")
         .attr("font-weight","bold");;
 

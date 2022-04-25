@@ -1,47 +1,34 @@
-.bars:hover{
-    stroke: rgb(0, 0, 0);
-    stroke-width: 2px;
+
+
+.dot:hover{
+	stroke-width: 2px;
+	stroke : rgb(0, 0, 0)
 }
 
-.bubbles:hover{
-    stroke: black;
-    fill-opacity: 1;
-    stroke-width: 3px;
-}
 
-.bubbles {
-    stroke: white;
-    stroke-width: 2px;
-}
-.dq:hover{
-    stroke: black;
-    stroke-width : 2px;
-}
 
 p{
 	
 	text-align: center;
 }
 
-.desc {
-	font-size: 25px;
-}
+
 
 h1 {
-	font-size: 58px;
+	font-size: 48px;
 	padding: 0;
 	margin: 0 0 10px;
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 18px;
 	padding: 0;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 h3 {
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	padding: 0;
 	margin-top: 30px;

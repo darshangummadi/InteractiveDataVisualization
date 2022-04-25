@@ -5,50 +5,54 @@ function loadbar(data,svg_name){
     chart_height = $(svg_name).height();
 
     birds = data.length;
-    //alert(no_of_passengers);
+ 
     bird_name = data;
+
+
+    var tooltips = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "black")
+        .style("border-radius", "4px")
+        .style("color", "white").style("padding", "5px")
 
 
     console.log(bird_name);
     
-    /*let new_data = [];
-
-    embarked_locs = d3.map(data, d => d.embarked).keys();
-    embarked_locs.splice(3,1);  // Removing null values
-    //alert(embarked_locs);
-    embarked_locs.forEach(ele => {
-        obj = {};
-        obj[field] = ele;  // field = "Embarked"
-        perc_of_pass = no_of_ps_emb(ele)/no_of_passengers * 100;
-        obj['% of total pass'] = perc_of_pass;
-        new_data.push(obj);
-    });
-    
-    //new_data.splice(3,1);  */
+  
 
     xScale = d3.scaleLinear()
                 .domain([2007, 2018])
-                .range([30,chart_width - 30]);
+                .range([50,chart_width - 30]);
 
     yScale = d3.scaleLinear()
                 .domain([0, 20])
-                .range([chart_height - 70, 30]);
+                .range([chart_height - 40, 0]);
 
     
 
     chart.selectAll("rect")
         .data(bird_name).enter()
             .append("rect")
+                .attr("class", "dot")
                 .attr("x", function(d) {  return xScale(d.Year); })
                 .attr("y", function(d) {  return yScale(d.noofentries); })
                 .attr("width", "20px")
                 .attr("height", function(d) { return yScale(20 - d.noofentries); })
-                .attr("fill", "red");
+                .attr("fill", "#ff884d")
+                .on("mouseover", function(d) {
+                    tooltips.style("visibility", "visible")
+                    .html("Year: " + d["Year"] + "<br>" + "No_of_entries: " + d["noofentries"])
+                })
+                .on("mousemove", function(d) {
+                    tooltips.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+                })
 
    
     
     yAxis = chart.append("g")
-                .attr("transform", "translate(40,-50)")
+                .attr("transform", "translate(40,0)")
                 .call(d3.axisLeft().scale(yScale));
 
     xAxis = chart.append("g")
@@ -56,17 +60,17 @@ function loadbar(data,svg_name){
                 .call(d3.axisBottom().scale(xScale));
 
     chart.append("text")
-            .text("Embarkment location")
-            .attr("y",chart_height-20)
-            .attr("dx",chart_width/2 - 150)
+            .text("Year")
+            .attr("y",chart_height-10)
+            .attr("dx",chart_width/2 - 10)
             .style("text-anchor","middle")
             .attr("font-weight","bold");
 
     chart.append("text")
-        .text("% of total no. of passengers")
+        .text("No of entries of birds in the Lekagul Nature Preserve")
         .attr("transform", "rotate(-90)")
-        .attr("y",13)
-        .attr("dx",-180)
+        .attr("y",15)
+        .attr("dx",-100)
         .style("text-anchor","end")
         .attr("font-weight","bold");;
 

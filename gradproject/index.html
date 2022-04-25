@@ -40,20 +40,27 @@
     </head>
     <body style="background-color: rgb(199, 208, 211);">
 
-        <p> Throughout this page, we will analyze the vocal data collected from different parts of preserve</p>
+        <p> Throughout this page, we will analyze why the bird Rose-Crested Blue Pipit which is one of the 
+            most loved by Mistford residents and preserve visitors is getting endangered. The vocal data collected 
+            from different parts of preserve is used for analysis and location of bird</p>
     
        
         <div style = "margin-left: 300px; float: initial; display: block;">
             <svg id="vis1" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
+                
             </svg>
+
         </div>
-        <p style="text-align: center;">1111111111111111</p>
+        <p style="text-align: center;">This scatterplot is plotted between the X and Y coordinates of Lekagul Nature Preserve where 
+        the points represent the location of the Rose-Crested Blue Pipit where its voice is being recorded. This data is captured 
+        between years 2007 and 2018</p>
 
         <div style = "margin-left: 300px;">
             <svg id="vis2" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
         </svg>
         </div>
-        <p style="text-align: center;"> 222222222222222222222222</p>
+        <p style="text-align: center;"> This represents the Number of entries of Rose-Crested Blue Pipit bird volcals recorded 
+            from the year the 2007 to 2018</p>
         <br/> <br/>
 
         
@@ -63,7 +70,9 @@
             <svg id="vis3" height="600" width="900" style="border: 2px solid lightgray;margin-top: 10px;">
         </svg>
         </div>
-        <p style="text-align: center;"> 333333333333333333333333</p>
+        <p style="text-align: center;"> This is the data similar to first plot and presented by KAISOS as the proof that the Rose-Crested Blue Pipit 
+        exists in the preserve. We can observe there is clear different plots from the actual data. This shows that the firm is trying to 
+        deceive with the false data</p>
         <br/> <br/>
 
         
@@ -77,16 +86,17 @@
         
     <script>
 
-        var data = null; 
-        let prcnt_tot_hc = null;
-        let expend = null;
 
 
        d3.csv("data/AllBirdsv4.csv",(row,i) => {
+
+            let date = row.Date;
+            let d = date.substring(date.length - 4)
            return{
                bird_name: row.English_name,
                xcordinate: row.X,
-               ycordinate: row.Y
+               ycordinate: row.Y,
+               date : +d
            }
        }).then(data => {
            vis1=loadscatterplot(data, "#vis1");
@@ -107,6 +117,7 @@
                     Y: row.Y
                 }
             }).then(data => {
+                console.log(data);
                 vis3=loadscatterplot2(data, "#vis3");
             })
     </script>
